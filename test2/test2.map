@@ -1,0 +1,184 @@
+(C)Copyright TOSHIBA CORPORATION 1993-2009  All rights reserved
+
+Wed May 31 15:42:38 2023
+
+Toshiba Unified Linker (32) V2.0p     [Page     1]     test2.map
+Runtime option : tulink -la -o test2.abs ngpc.lcf system.lib test2.rel library.rel 
+
+  Command file : ngpc.lcf
+    memory
+    {
+    	io(RW)	: org=0x000000, len=0x000100
+    	ram(RW)	: org=0x004000, len=0x002C00
+    	rom(RX)	: org=0x200000, len=0x200000
+    }
+    
+    sections
+    {
+    	far_area	org=0x004000								: {*(f_area)}
+    	far_startup	org=0x200000								: {*(f_header)}
+    	far_const	org=org(far_startup)+sizeof(far_startup)		: {*(f_const)}
+    	far_code	org=org(far_const)+sizeof(far_const)	: {*(f_code)}
+    	far_data	org=org(far_code)+sizeof(far_code)
+    				addr=org(far_area)+sizeof(far_area)			: {*(f_data)}
+    	__DataRAM = addr(far_data);
+    }
+
+  Input files (modules)
+    test2.rel (test2_c)
+    library.rel (library_c)
+    system.lib (int_lv wave )
+
+  Link map
+    Memory     Out-sec    Attri   Base       Length     In-sec(In-file)        Information
+    ---------- ---------- ------- ---------- ---------- ---------------------- ---------------
+    io                                     0        100                        *** Gap ***
+    ram        far_area   DATA          4000          9 f_area  (library.rel)  NORMAL
+    ram                                 4009       2BF7                        *** Gap ***
+    rom        far_const  ROMDATA     200000         7B f_const (test2.rel)    NORMAL
+    rom        far_const  ROMDATA     20007B          1                        *** Gap ***
+    rom        far_const  ROMDATA     20007C       15AC f_const (library.rel)  NORMAL
+    rom        far_code   CODE        201628         FE f_code  (test2.rel)    NORMAL
+    rom        far_code   CODE        201726        E81 f_code  (library.rel)  NORMAL
+    rom        SYSLIB     CODE        2025A7        120 SYSLIB  (system.lib)   NORMAL
+    rom        SYSLIB     CODE        2026C7         9C SYSLIB  (system.lib)   NORMAL
+    rom                               202763     1FD89D                        *** Gap ***
+
+  Symbol table for test2.abs
+      Symbol       Address  In-sec   Cross-reference
+      ------------ -------- -------- --------------------------------------
+    Input module : test2_c
+      _CartID        200020 f_const  
+      _CartTitle     200024 f_const  
+      _Licensed      200000 f_const  
+      _Reserved      200030 f_const  
+      _System        200022 f_const  
+      _main          201628 f_code   
+      _ptr           20001C f_const  
+    Input module : library_c
+      _BitmapMask    2015C8 f_const  
+      _BitmapNewMask
+                     2015D8 f_const  
+      _BlockCopy     201CAA f_code   
+      _ClearBitmap_2
+                     2022A2 f_code   
+      _ClearScreen   201817 f_code   test2_c  
+      _CopyBitmap    202058 f_code   
+      _Cos           201DFA f_code   
+      _CpuSpeed      201944 f_code   
+      _CreateBitmap
+                     201F2F f_code   
+      _CreateBitmap_2
+                     2022B7 f_code   
+      _DayNames      201582 f_const  
+      _DrawBitmap    2020C5 f_code   
+      _DrawLine      202133 f_code   
+      _DrawLineHorizontal
+                     202267 f_code   
+      _DrawLineVertical
+                     20222C f_code   
+      _DummyFunction
+                     201726 f_code   
+      _FillScreen    202471 f_code   
+      _Flash         202542 f_code   
+      _GetRandom     201D8F f_code   
+      _GetSavedData
+                     20256F f_code   
+      _GetTile       2018F0 f_code   
+      _GetTime       201E0D f_code   
+      _InitNGPC      201763 f_code   test2_c  
+      _InitialiseQRandom
+                     201DCC f_code   
+      _InstallSoundDriver
+                     201CCA f_code   
+      _InstallSounds
+                     201CEE f_code   
+      _InstallTileSet
+                     201BE2 f_code   
+      _InstallTileSetAt
+                     201BB0 f_code   
+      _Multiply32bit
+                     201D73 f_code   
+      _NeoTracker_Driver
+                     2005CC f_const  
+      _NeoTracker_InstallDriver
+                     201E82 f_code   
+      _NeoTracker_PlayMusic
+                     201F08 f_code   
+      _NeoTracker_PlaySFX
+                     201F18 f_code   
+      _NeoTracker_SendGroup
+                     201EB8 f_code   
+      _NeoTracker_StopAll
+                     201F28 f_code   
+      _OffsetValues
+                     201618 f_const  
+      _PlaySound     201D50 f_code   
+      _PrintDecimal
+                     2019B8 f_code   
+      _PrintHex      201A7E f_code   
+      _PrintHex2     201ADC f_code   
+      _PrintNumber   201A0B f_code   
+      _PrintString   201B4B f_code   test2_c  
+      _PutBitmapTile
+                     202028 f_code   
+      _PutTile       2018B3 f_code   
+      _QRandom       201DD3 f_code   
+      _QuickRandomNumbers
+                     201082 f_const  
+      _QuickSetPixel
+                     201FDA f_code   
+      _RAND_RandomData
+                       4004 f_area   
+      _RandomNumberCounter
+                       4008 f_area   
+      _ResumeOff     2017F8 f_code   
+      _SFXDriver_Z80
+                     20007C f_const  
+      _SFXInstalled
+                       4002 f_area   
+      _SeedRandom    201D5E f_code   
+      _SetAlarm      201E4F f_code   
+      _SetBackgroundColour
+                     201BF2 f_code   test2_c  
+      _SetColors     201840 f_code   
+      _SetMoreColors
+                     2023DE f_code   
+      _SetPalette    201897 f_code   test2_c  
+      _SetPixel      201F77 f_code   
+      _SetPixel_2    202350 f_code   
+      _SetScreen     2024F8 f_code   
+      _SetSprite     201C07 f_code   test2_c  
+      _SetSpritePosition
+                     201C8B f_code   test2_c  
+      _SetWake       201E29 f_code   
+      _SetWindowColor
+                     201BFF f_code   
+      _ShiftScroll   202515 f_code   
+      _Sin           201DEA f_code   
+      _SineTable256
+                     201482 f_const  
+      _Sleep         201990 f_code   test2_c  
+      _SpriteControl
+                     201C58 f_code   
+      _StopAllSound
+                     201D58 f_code   
+      _SwapPlanes    202538 f_code   
+      _SysPlayWave   201E75 f_code   
+      _SysSetSystemFont
+                     2017FE f_code   test2_c  
+      _SysShutdown   2017E2 f_code   
+      _TileScreen    2024A4 f_code   
+      _UnsetSprite   201C79 f_code   
+      _VBCounter       4000 f_area   
+      _VBInterrupt   201727 f_code   
+      _WaitVblank    20198F f_code   
+      _WaitVsync     20197C f_code   
+      _WaitVsyncHARD
+                     201961 f_code   
+    Input module : wave
+      WAVE_OUT       2025A7 SYSLIB   library_c 
+    Input module : int_lv
+      INT_LV_SET     2026C7 SYSLIB   wave     
+
+Linker end,No error

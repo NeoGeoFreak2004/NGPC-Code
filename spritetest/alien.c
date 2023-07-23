@@ -1,0 +1,10 @@
+// Exported by NeoTile
+
+const unsigned short alien[1][8] = 
+{
+	{0x0550, 0x0550, 0x1144, 0x1554, 0x1554, 0x4001, 0x0000, 0x0000}
+};
+
+enum
+{
+};

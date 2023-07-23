@@ -1,0 +1,183 @@
+(C)Copyright TOSHIBA CORPORATION 1993-2009  All rights reserved
+
+Sat May 06 20:00:06 2023
+
+Toshiba Unified Linker (32) V2.0p     [Page     1]     joypad.map
+Runtime option : C:\Program Files (x86)\amelian\ngpcbins\T900\BIN\tulink.exe -la -o joypad.abs ngpc.lcf system.lib joypad.rel library.rel 
+
+  Command file : ngpc.lcf
+    memory
+    {
+    	io(RW)	: org=0x000000, len=0x000100
+    	ram(RW)	: org=0x004000, len=0x002C00
+    	rom(RX)	: org=0x200000, len=0x200000
+    }
+    
+    sections
+    {
+    	far_area	org=0x004000								: {*(f_area)}
+    	far_startup	org=0x200000								: {*(f_header)}
+    	far_const	org=org(far_startup)+sizeof(far_startup)		: {*(f_const)}
+    	far_code	org=org(far_const)+sizeof(far_const)	: {*(f_code)}
+    	far_data	org=org(far_code)+sizeof(far_code)
+    				addr=org(far_area)+sizeof(far_area)			: {*(f_data)}
+    	__DataRAM = addr(far_data);
+    }
+
+  Input files (modules)
+    joypad.rel (joypad_c)
+    library.rel (library_c)
+    system.lib (int_lv wave )
+
+  Link map
+    Memory     Out-sec    Attri   Base       Length     In-sec(In-file)        Information
+    ---------- ---------- ------- ---------- ---------- ---------------------- ---------------
+    io                                     0        100                        *** Gap ***
+    ram        far_area   DATA          4000          9 f_area  (library.rel)  NORMAL
+    ram                                 4009       2BF7                        *** Gap ***
+    rom        far_const  ROMDATA     200000         40 f_const (joypad.rel)   NORMAL
+    rom        far_const  ROMDATA     200040       15AC f_const (library.rel)  NORMAL
+    rom        far_code   CODE        2015EC         55 f_code  (joypad.rel)   NORMAL
+    rom        far_code   CODE        201641        E81 f_code  (library.rel)  NORMAL
+    rom        SYSLIB     CODE        2024C2        120 SYSLIB  (system.lib)   NORMAL
+    rom        SYSLIB     CODE        2025E2         9C SYSLIB  (system.lib)   NORMAL
+    rom                               20267E     1FD982                        *** Gap ***
+
+  Symbol table for joypad.abs
+      Symbol       Address  In-sec   Cross-reference
+      ------------ -------- -------- --------------------------------------
+    Input module : joypad_c
+      _CartID        200020 f_const  
+      _CartTitle     200024 f_const  
+      _Licensed      200000 f_const  
+      _Reserved      200030 f_const  
+      _System        200022 f_const  
+      _main          2015EC f_code   
+      _ptr           20001C f_const  
+    Input module : library_c
+      _BitmapMask    20158C f_const  
+      _BitmapNewMask
+                     20159C f_const  
+      _BlockCopy     201BC5 f_code   
+      _ClearBitmap_2
+                     2021BD f_code   
+      _ClearScreen   201732 f_code   joypad_c 
+      _CopyBitmap    201F73 f_code   
+      _Cos           201D15 f_code   
+      _CpuSpeed      20185F f_code   
+      _CreateBitmap
+                     201E4A f_code   
+      _CreateBitmap_2
+                     2021D2 f_code   
+      _DayNames      201546 f_const  
+      _DrawBitmap    201FE0 f_code   
+      _DrawLine      20204E f_code   
+      _DrawLineHorizontal
+                     202182 f_code   
+      _DrawLineVertical
+                     202147 f_code   
+      _DummyFunction
+                     201641 f_code   
+      _FillScreen    20238C f_code   
+      _Flash         20245D f_code   
+      _GetRandom     201CAA f_code   
+      _GetSavedData
+                     20248A f_code   
+      _GetTile       20180B f_code   
+      _GetTime       201D28 f_code   
+      _InitNGPC      20167E f_code   joypad_c 
+      _InitialiseQRandom
+                     201CE7 f_code   
+      _InstallSoundDriver
+                     201BE5 f_code   
+      _InstallSounds
+                     201C09 f_code   
+      _InstallTileSet
+                     201AFD f_code   
+      _InstallTileSetAt
+                     201ACB f_code   
+      _Multiply32bit
+                     201C8E f_code   
+      _NeoTracker_Driver
+                     200590 f_const  
+      _NeoTracker_InstallDriver
+                     201D9D f_code   
+      _NeoTracker_PlayMusic
+                     201E23 f_code   
+      _NeoTracker_PlaySFX
+                     201E33 f_code   
+      _NeoTracker_SendGroup
+                     201DD3 f_code   
+      _NeoTracker_StopAll
+                     201E43 f_code   
+      _OffsetValues
+                     2015DC f_const  
+      _PlaySound     201C6B f_code   
+      _PrintDecimal
+                     2018D3 f_code   joypad_c 
+      _PrintHex      201999 f_code   
+      _PrintHex2     2019F7 f_code   
+      _PrintNumber   201926 f_code   
+      _PrintString   201A66 f_code   
+      _PutBitmapTile
+                     201F43 f_code   
+      _PutTile       2017CE f_code   
+      _QRandom       201CEE f_code   
+      _QuickRandomNumbers
+                     201046 f_const  
+      _QuickSetPixel
+                     201EF5 f_code   
+      _RAND_RandomData
+                       4004 f_area   
+      _RandomNumberCounter
+                       4008 f_area   
+      _ResumeOff     201713 f_code   
+      _SFXDriver_Z80
+                     200040 f_const  
+      _SFXInstalled
+                       4002 f_area   
+      _SeedRandom    201C79 f_code   
+      _SetAlarm      201D6A f_code   
+      _SetBackgroundColour
+                     201B0D f_code   joypad_c 
+      _SetColors     20175B f_code   
+      _SetMoreColors
+                     2022F9 f_code   
+      _SetPalette    2017B2 f_code   joypad_c 
+      _SetPixel      201E92 f_code   
+      _SetPixel_2    20226B f_code   
+      _SetScreen     202413 f_code   
+      _SetSprite     201B22 f_code   
+      _SetSpritePosition
+                     201BA6 f_code   
+      _SetWake       201D44 f_code   
+      _SetWindowColor
+                     201B1A f_code   
+      _ShiftScroll   202430 f_code   
+      _Sin           201D05 f_code   
+      _SineTable256
+                     201446 f_const  
+      _Sleep         2018AB f_code   
+      _SpriteControl
+                     201B73 f_code   
+      _StopAllSound
+                     201C73 f_code   
+      _SwapPlanes    202453 f_code   
+      _SysPlayWave   201D90 f_code   
+      _SysSetSystemFont
+                     201719 f_code   joypad_c 
+      _SysShutdown   2016FD f_code   
+      _TileScreen    2023BF f_code   
+      _UnsetSprite   201B94 f_code   
+      _VBCounter       4000 f_area   
+      _VBInterrupt   201642 f_code   
+      _WaitVblank    2018AA f_code   
+      _WaitVsync     201897 f_code   
+      _WaitVsyncHARD
+                     20187C f_code   
+    Input module : wave
+      WAVE_OUT       2024C2 SYSLIB   library_c 
+    Input module : int_lv
+      INT_LV_SET     2025E2 SYSLIB   wave     
+
+Linker end,No error
